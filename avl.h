@@ -89,7 +89,12 @@ class AVL{
             update_height(node);
         }
 
-        Node* findMin(Node* node);
+        Node* findMin(Node* node){
+            while(node->left)
+                node = node->left;
+            
+            return node;
+        }
 
         void insert(Node* current, T _data){
             if(!current)
