@@ -38,7 +38,28 @@ class AVL{
             node->height = max(height(node->left), height(node->right)) + 1;
         }
 
-        void balance(Node* node);
+        int balance_factor(Node* node){
+            return height(node->left) - height(node->right);
+        }
+
+        void balance(Node* node){
+            if(!node)
+                return;
+            
+            if(balance_factor(node) > 1)
+                if(balance_factor(node->left) >= 0)
+                    l_rotation(node);
+                else
+                    rl_rotation(node);
+            else
+                if(balance_factor(node) < -1)
+                    if(balance_factor(node->right) >= 0)
+                        r_rotation(node);
+                    else
+                        lr_rotation(node);
+            
+            update_height(node);
+        }
 
         Node* findMin(Node* node);
 
