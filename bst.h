@@ -5,16 +5,16 @@
 #include <vector>
 using namespace std;
 
-template<typename TK, typename TV>
+template<typename T>
 class BST{
     private:
         struct Node{};
         Node* root;
     public:
         BST(): root(nullptr){};
-        void insert(TK key, TV value);
-        void erase(TK key);
-        vector<TV> search(TK begin, TK end);
+        void insert(T _data);
+        void erase(T key);
+        vector<TV> search(T begin, T end);
         void print(string traversal = "inorder");
         void clear();
         ~BST(){
