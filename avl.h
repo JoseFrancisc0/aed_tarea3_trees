@@ -154,6 +154,16 @@ class AVL{
                 search(current->right, begin, end, v);
         }
 
+        void pre_order(Node* current);
+
+        void in_order(Node* current);
+
+        void post_order(Node* current);
+
+        void breadth_first_search(Node* current);
+
+        void depth_first_search(Node* current);
+
     public:
         AVL(): root(nullptr){};
 
