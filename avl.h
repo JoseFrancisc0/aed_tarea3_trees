@@ -27,7 +27,18 @@ class AVL{
 
         Node* root;
 
-        void insert(Node* current, T _data);
+        void balance(Node* nodo);
+
+        void insert(Node* current, T _data){
+            if(!current)
+                current = new Node(_data);
+            else if(_data < current->data)
+                insert(current->left, _data);
+            else if(_data > current->data)
+                insert(current->right, _data);
+
+            balance(current);
+        }
 
         void erase(Node* current, T key);
 
