@@ -27,7 +27,11 @@ class AVL{
 
         Node* root;
 
-        void balance(Node* nodo);
+        void update_height(Node* node);
+
+        void balance(Node* node);
+
+        Node* findMin(Node* node);
 
         void insert(Node* current, T _data){
             if(!current)
@@ -40,7 +44,40 @@ class AVL{
             balance(current);
         }
 
-        void erase(Node* current, T key);
+        Node* erase(Node* current, T item){
+            if(!current)
+                return nullptr;
+            
+            if(item < current->data)
+                current->left = erase(current->left, item);
+            else if(item > current->data)
+                current->right = erase(current->right, item);
+            else{
+                if(!current->left && !current->right){
+                    delete current;
+                    return nullptr;
+                }
+                else if(!current->left){
+                    Node* temp = current->right;
+                    delete current;
+                    return temp;
+                }
+                else if(!current->right){
+                    Node* temp = current->left;
+                    delete current;
+                    return temp;
+                }
+                else{
+                    Node* successor = findMin(current->right);
+                    current->data = successor->data;
+                    current->right = erase(current->right, successor->data);
+                }
+            }
+
+            update_height(current);
+            balance(current);
+            return current;
+        }
 
         void range_search(Node* current, T begin, T end, vector<T>& v){
             if(!current)
@@ -61,8 +98,8 @@ class AVL{
             insert(root, _data);
         }
 
-        void erase(T key){
-            erase(root, key);
+        void erase(T item){
+            erase(root, item);
         }
 
         vector<T> range_search(T begin, T end){
