@@ -35,7 +35,28 @@ class BST{
                 insert(current->right, _data);
         }
 
-        void erase(Node*& current, T _data);
+        void erase(Node*& current, T _data){
+            if(!current)
+                return;
+            
+            if(item < current->data)
+                erase(current->left, item);
+            else if(item > current->data)
+                erase(current->right, item);
+            else if(current->left && current->right){
+                T min = findMin(current->right);
+                current->data = min;
+                erase(current->right, min);
+            }
+            else{
+                Node* temp = current;
+                if(current->left)
+                    current = current->left;
+                else
+                    current = current->right;
+                delete temp;
+            }
+        }
 
         bool search(Node* current, T item);
 
