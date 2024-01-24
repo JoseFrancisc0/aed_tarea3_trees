@@ -8,8 +8,16 @@ using namespace std;
 template<typename T>
 class BST{
     private:
-        struct Node{};
+        struct Node{
+            T data;
+            Node* left = nullptr;
+            Node* right = nullptr;
+
+            Node(T _data): data(_data){};
+        };
+
         Node* root;
+
     public:
         BST(): root(nullptr){};
         void insert(T _data);
