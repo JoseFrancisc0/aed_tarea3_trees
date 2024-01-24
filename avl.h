@@ -5,17 +5,16 @@
 #include <vector>
 using namespace std;
 
-template<typename TK, typename TV>
+template<typename T>
 class AVL{
     private:
         struct Node{
-            TK key;
-            TV value;
+            T data;
             int height = 0;
             Node* left = nullptr;
             Node* right = nullptr;
 
-            Node(TK _key, TV _value) : key(_key), value(_value){};
+            Node(T _data) : data(_data){};
 
             void kill_self(){
                 if(left)
@@ -28,25 +27,25 @@ class AVL{
 
         Node* root;
 
-        void insert(Node* current, TK key, TV value);
+        void insert(Node* current, T _data);
 
-        void erase(Node* current, TK key);
+        void erase(Node* current, T key);
 
-        void search(Node* current, TK begin, TK end, vector<TK>& v);
+        void search(Node* current, T begin, T end, vector<T>& v);
 
     public:
         AVL(): root(nullptr){};
 
-        void insert(TK key, TV value){
-            insert(root, key, value);
+        void insert(T _data){
+            insert(root, _data);
         }
 
-        void erase(TK key){
+        void erase(T key){
             erase(root, key);
         }
 
-        vector<TV> search(TK begin, TK end){
-            vector<TV> result;
+        vector<T> search(T begin, T end){
+            vector<T> result;
             search(root, begin, end, result);
             return result;
         }
