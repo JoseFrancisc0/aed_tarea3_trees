@@ -27,7 +27,16 @@ class AVL{
 
         Node* root;
 
-        void update_height(Node* node);
+        int height(Node* node){
+            if(!node)
+                return -1;
+            else
+                return node->height;
+        }
+
+        void update_height(Node* node){
+            node->height = max(height(node->left), height(node->right)) + 1;
+        }
 
         void balance(Node* node);
 
