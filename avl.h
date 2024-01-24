@@ -38,6 +38,34 @@ class AVL{
             node->height = max(height(node->left), height(node->right)) + 1;
         }
 
+        void l_rotation(Node* node){
+            Node* temp = node->left;
+            node->left = temp->right;
+            temp->right = node;
+            update_height(node);
+            temp->height = max(height(temp->left), node->height) + 1;
+            node = temp;
+        }
+
+        void r_rotation(Node* node){
+            Node* temp = node->right;
+            node->right = temp->left;
+            temp->left = node;
+            update_height(node);
+            temp->height = max(height(temp->right), node->height) + 1;
+            node = temp;
+        }
+
+        void lr_rotation(Node* node){
+            l_rotation(node);
+            r_rotation(node);
+        }
+
+        void rl_rotation(Node* node){
+            r_rotation(node);
+            l_rotation(node);
+        }
+
         int balance_factor(Node* node){
             return height(node->left) - height(node->right);
         }
