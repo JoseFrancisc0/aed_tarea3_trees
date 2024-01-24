@@ -53,7 +53,12 @@ class AVL{
 
         void print(string traversal = "inorder");
 
-        void clear();
+        void clear(){
+            if(root){
+                root->kill_self();
+                root = nullptr;
+            }
+        }
 
         ~AVL(){
             clear();
