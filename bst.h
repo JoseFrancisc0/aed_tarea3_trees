@@ -165,7 +165,40 @@ class BST{
             return result;
         }
 
-        void print(string traversal = "inorder");
+        void print(string traversal = "inorder"){
+            if(!root){
+                cout << "EMPTY TREE" << endl;
+                return;
+            }
+            
+            if(traversal == "preorder"){
+                cout << "PRE ORDER: ";
+                pre_order(root);
+            }
+            else if(traversal == "inorder"){
+                cout << "IN ORDER: ";
+                in_order(root);
+            }
+            else if(traversal == "postorder"){
+                cout << "POST ORDER: ";
+                post_order(root);
+            }
+            else if(traversal == "BFS"){
+                cout << "BFS: ";
+                breadth_first_search();
+            }
+            else if(traversal == "DFS"){
+                cout << "DFS: ";
+                depth_first_search();
+            }
+            else{
+                cout << "Invalid input. Defaulting to inorder" << "\n";
+                cout << "IN ORDER: ";
+                in_order(root);
+            }
+
+            cout << "\n";
+        }
 
         void clear(){
             if(root){
