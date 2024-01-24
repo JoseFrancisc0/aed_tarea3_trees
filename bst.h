@@ -69,7 +69,17 @@ class BST{
                 return true;
         }
 
-        void range_search(Node* current, T item, vector<T>& v);
+        void range_search(Node* current, T item, vector<T>& v){
+            if(!current)
+                return;
+            
+            if(current->data > begin)
+                range_search(current->left, begin, end, v);
+            if(current->data >= begin && current->data <= end)
+                v.push_back(current->data);
+            if(current->data < end)
+                range_search(current->right, begin, end, v);
+        }
 
     public:
         BST(): root(nullptr){};
