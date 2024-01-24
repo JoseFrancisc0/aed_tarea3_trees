@@ -8,8 +8,26 @@ using namespace std;
 template<typename TK, typename TV>
 class AVL{
     private:
-        struct Node{};
+        struct Node{
+            TK key;
+            TV value;
+            int height = 0;
+            Node* left = nullptr;
+            Node* right = nullptr;
+
+            Node(TK _key, TV _value) : key(_key), value(_value){};
+
+            void kill_self(){
+                if(left)
+                    left->kill_self();
+                if(right)
+                    right->kill_self();
+                delete this;
+            }
+        };
+
         Node* root;
+        
     public:
         AVL(): root(nullptr){};
         void insert(TK key, TV value);
