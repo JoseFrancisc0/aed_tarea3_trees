@@ -26,6 +26,15 @@ class BST{
 
         Node* root;
 
+        T findMin(Node* node){
+            if(!node)
+                return NULL;
+            if(!node->left)
+                return node->data;
+            
+            return findMin(node->left);
+        }
+
         void insert(Node*& current, T _data){
             if(!current)
                 current = new Node(_data);
@@ -69,7 +78,7 @@ class BST{
                 return true;
         }
 
-        void range_search(Node* current, T item, vector<T>& v){
+        void range_search(Node* current, T begin, T end, vector<T>& v){
             if(!current)
                 return;
             
