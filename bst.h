@@ -26,16 +26,34 @@ class BST{
 
         Node* root;
 
+        void insert(Node*& current, T _data);
+
+        void erase(Node*& current, T _data);
+
+        bool search(Node* current, T item);
+
+        void range_search(Node* current, T item, vector<T>& v);
+
     public:
         BST(): root(nullptr){};
 
-        void insert(T _data);
+        void insert(T _data){
+            insert(root, _data);
+        }
 
-        void erase(T key);
+        void erase(T item){
+            erase(root, item)
+        }
 
-        bool search(T data);
+        bool search(T item){
+            return search(root, item);
+        }
 
-        vector<TV> range_search(T begin, T end);
+        vector<T> range_search(T begin, T end){
+            vector<T> result;
+            range_search(root, begin, end, result);
+            return result;
+        }
 
         void print(string traversal = "inorder");
 
