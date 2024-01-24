@@ -145,6 +145,17 @@ class AVL{
             return current;
         }
 
+        bool search(Node* current, T item){
+            if(!current)
+                return false;
+            else if(item < current->data)
+                return search(current->left, item);
+            else if(item > current->data)
+                return search(current->right, item);
+            else
+                return true;
+        }
+
         void range_search(Node* current, T begin, T end, vector<T>& v){
             if(!current)
                 return;
@@ -218,6 +229,10 @@ class AVL{
 
         void erase(T item){
             erase(root, item);
+        }
+
+        bool search(T item){
+            return search(root, item);
         }
 
         vector<T> range_search(T begin, T end){
