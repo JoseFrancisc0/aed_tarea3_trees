@@ -14,6 +14,14 @@ class BST{
             Node* right = nullptr;
 
             Node(T _data): data(_data){};
+
+            void kill_self(){
+                if(left)
+                    left->kill_self();
+                if(right)
+                    right->kill_self();
+                delete this;
+            }
         };
 
         Node* root;
@@ -24,7 +32,14 @@ class BST{
         void erase(T key);
         vector<TV> search(T begin, T end);
         void print(string traversal = "inorder");
-        void clear();
+
+        void clear(){
+            if(root){
+                root->kill_self();
+                root = nullptr;
+            }
+        }
+
         ~BST(){
             clear();
         }
