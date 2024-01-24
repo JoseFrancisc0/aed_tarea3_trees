@@ -236,8 +236,10 @@ class AVL{
         }
 
         void print(string traversal = "inorder"){
-            if(!root)
+            if(!root){
+                cout << "EMPTY TREE" << endl;
                 return;
+            }
             
             if(traversal == "preorder"){
                 cout << "PRE ORDER: ";
