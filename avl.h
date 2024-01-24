@@ -1,6 +1,7 @@
 #ifndef AVL_H
 #define AVL_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -181,7 +182,22 @@ class AVL{
             return result;
         }
 
-        void print(string traversal = "inorder");
+        void print(string traversal = "inorder"){
+            if(tolower(traversal) == "preorder")
+                pre_order(root);
+            else if(tolower(traversal) == "inorder")
+                in_order(root);
+            else if(tolower(traversal) == "postorder")
+                post_order(root);
+            else if(tolower(traversal) == "BFS")
+                breadth_first_search(root);
+            else if(tolower(traversal) == "DFS")
+                depth_first_search(root);
+            else{
+                cout << "Invalid input. Defaulting to inorder" << "\n";
+                in_order(root);
+            }
+        }
 
         void clear(){
             if(root){
