@@ -184,7 +184,7 @@ class AVL{
             }
         }
 
-        void breadth_first_search(Node* current){
+        void breadth_first_search(){
             queue<Node*> q;
             q.push(root);
             while(!q.empty()){
@@ -198,17 +198,19 @@ class AVL{
             }
         }
 
-        void depth_first_search(Node* current){
+        void depth_first_search(){
             stack<Node*> s;
-            s.push(root);
-            while(!s.empty()){
-                Node* temp = s.top();
+            Node* temp = root;
+
+            while(temp || !s.empty()){
+                while(temp){
+                    s.push(temp);
+                    temp = temp->left;
+                }
+                temp = s.top();
                 s.pop();
                 cout << temp->data << " ";
-                if(temp->left)
-                    s.push(temp->left);
-                if(temp->right)
-                    s.push(temp->right);
+                temp = temp->right;
             }
         }
 
@@ -234,18 +236,32 @@ class AVL{
         }
 
         void print(string traversal = "inorder"){
-            if(traversal == "preorder")
+            if(!root)
+                return;
+            
+            if(traversal == "preorder"){
+                cout << "PRE ORDER: ";
                 pre_order(root);
-            else if(traversal == "inorder")
+            }
+            else if(traversal == "inorder"){
+                cout << "IN ORDER: ";
                 in_order(root);
-            else if(traversal == "postorder")
+            }
+            else if(traversal == "postorder"){
+                cout << "POST ORDER: ";
                 post_order(root);
-            else if(traversal == "BFS")
-                breadth_first_search(root);
-            else if(traversal == "DFS")
-                depth_first_search(root);
+            }
+            else if(traversal == "BFS"){
+                cout << "BFS: ";
+                breadth_first_search();
+            }
+            else if(traversal == "DFS"){
+                cout << "DFS: ";
+                depth_first_search();
+            }
             else{
                 cout << "Invalid input. Defaulting to inorder" << "\n";
+                cout << "IN ORDER: ";
                 in_order(root);
             }
 
