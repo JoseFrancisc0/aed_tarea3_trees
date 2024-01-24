@@ -58,7 +58,16 @@ class BST{
             }
         }
 
-        bool search(Node* current, T item);
+        bool search(Node* current, T item){
+            if(!current)
+                return false;
+            else if(item < current->data)
+                return search(current->left, item);
+            else if(item > current->data)
+                return search(current->right, item);
+            else
+                return true;
+        }
 
         void range_search(Node* current, T item, vector<T>& v);
 
