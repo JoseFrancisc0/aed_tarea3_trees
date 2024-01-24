@@ -41,31 +41,31 @@ class AVL{
             node->height = max(height(node->left), height(node->right)) + 1;
         }
 
-        void l_rotation(Node* node){
+        void l_rotation(Node*& node){
             Node* temp = node->left;
             node->left = temp->right;
             temp->right = node;
-            update_height(node);
+            node->height = max(height(node->left), height(node->right)) + 1;
             temp->height = max(height(temp->left), node->height) + 1;
             node = temp;
         }
 
-        void r_rotation(Node* node){
+        void r_rotation(Node*& node){
             Node* temp = node->right;
             node->right = temp->left;
             temp->left = node;
-            update_height(node);
+            node->height = max(height(node->right), height(node->left)) + 1;
             temp->height = max(height(temp->right), node->height) + 1;
             node = temp;
         }
 
-        void lr_rotation(Node* node){
-            l_rotation(node);
+        void lr_rotation(Node*& node){
+            l_rotation(node->right);
             r_rotation(node);
         }
 
-        void rl_rotation(Node* node){
-            r_rotation(node);
+        void rl_rotation(Node*&  node){
+            r_rotation(node->left);
             l_rotation(node);
         }
 
@@ -73,7 +73,7 @@ class AVL{
             return height(node->left) - height(node->right);
         }
 
-        void balance(Node* node){
+        void balance(Node*& node){
             if(!node)
                 return;
             
@@ -84,7 +84,7 @@ class AVL{
                     rl_rotation(node);
             else
                 if(balance_factor(node) < -1)
-                    if(balance_factor(node->right) >= 0)
+                    if(balance_factor(node->right) <= 0)
                         r_rotation(node);
                     else
                         lr_rotation(node);
@@ -99,7 +99,7 @@ class AVL{
             return node;
         }
 
-        void insert(Node* current, T _data){
+        void insert(Node*& current, T _data){
             if(!current)
                 current = new Node(_data);
             else if(_data < current->data)
@@ -200,23 +200,23 @@ class AVL{
                 q.pop();
                 cout << temp->data << " ";
                 if(temp->left)
-                    q.push(node->left);
-                if(temp->righ)
-                    q.push(node->righ);
+                    q.push(temp->left);
+                if(temp->right)
+                    q.push(temp->right);
             }
         }
 
         void depth_first_search(Node* current){
             stack<Node*> s;
             s.push(root);
-            while(!s.empty){
-                Node* temp = s.front();
+            while(!s.empty()){
+                Node* temp = s.top();
                 s.pop();
                 cout << temp->data << " ";
                 if(temp->left)
-                    s.push(temp->left)
-                if(temp->righ)
-                    s.push(temp->righ);
+                    s.push(temp->left);
+                if(temp->right)
+                    s.push(temp->right);
             }
         }
 
@@ -242,22 +242,22 @@ class AVL{
         }
 
         void print(string traversal = "inorder"){
-            if(tolower(traversal) == "preorder")
+            if(traversal == "preorder")
                 pre_order(root);
-            else if(tolower(traversal) == "inorder")
+            else if(traversal == "inorder")
                 in_order(root);
-            else if(tolower(traversal) == "postorder")
+            else if(traversal == "postorder")
                 post_order(root);
-            else if(tolower(traversal) == "BFS")
+            else if(traversal == "BFS")
                 breadth_first_search(root);
-            else if(tolower(traversal) == "DFS")
+            else if(traversal == "DFS")
                 depth_first_search(root);
             else{
                 cout << "Invalid input. Defaulting to inorder" << "\n";
                 in_order(root);
             }
 
-            cout << "\n"
+            cout << "\n";
         }
 
         void clear(){
