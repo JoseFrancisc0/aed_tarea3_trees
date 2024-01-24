@@ -92,11 +92,13 @@ class AVL{
             update_height(node);
         }
 
-        Node* findMin(Node* node){
-            while(node->left)
-                node = node->left;
+        T findMin(Node* node){
+            if(!node)
+                return NULL;
+            if(!node->left)
+                return node->data;
             
-            return node;
+            return findMin(node->left);
         }
 
         void insert(Node*& current, T _data){
@@ -110,39 +112,29 @@ class AVL{
             balance(current);
         }
 
-        Node* erase(Node* current, T item){
+        void erase(Node*& current, T item){
             if(!current)
-                return nullptr;
+                return;
             
             if(item < current->data)
-                current->left = erase(current->left, item);
+                erase(current->left, item);
             else if(item > current->data)
-                current->right = erase(current->right, item);
+                erase(current->right, item);
+            else if(current->left && current->right){
+                T min = findMin(current->right);
+                current->data = min;
+                erase(current->right, min);
+            }
             else{
-                if(!current->left && !current->right){
-                    delete current;
-                    return nullptr;
-                }
-                else if(!current->left){
-                    Node* temp = current->right;
-                    delete current;
-                    return temp;
-                }
-                else if(!current->right){
-                    Node* temp = current->left;
-                    delete current;
-                    return temp;
-                }
-                else{
-                    Node* successor = findMin(current->right);
-                    current->data = successor->data;
-                    current->right = erase(current->right, successor->data);
-                }
+                Node* temp = current;
+                if(current->left)
+                    current = current->left;
+                else
+                    current = current->right;
+                delete temp;
             }
 
-            update_height(current);
             balance(current);
-            return current;
         }
 
         bool search(Node* current, T item){
@@ -161,11 +153,11 @@ class AVL{
                 return;
             
             if(current->data > begin)
-                search(current->left, begin, end, v);
+                range_search(current->left, begin, end, v);
             if(current->data >= begin && current->data <= end)
                 v.push_back(current->data);
             if(current->data < end)
-                search(current->right, begin, end, v);
+                range_search(current->right, begin, end, v);
         }
 
         void pre_order(Node* current){
@@ -237,7 +229,7 @@ class AVL{
 
         vector<T> range_search(T begin, T end){
             vector<T> result;
-            search(root, begin, end, result);
+            range_search(root, begin, end, result);
             return result;
         }
 
