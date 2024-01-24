@@ -27,14 +27,34 @@ class AVL{
         };
 
         Node* root;
-        
+
+        void insert(Node* current, TK key, TV value);
+
+        void erase(Node* current, TK key);
+
+        void search(Node* current, TK begin, TK end, vector<TK>& v);
+
     public:
         AVL(): root(nullptr){};
-        void insert(TK key, TV value);
-        void erase(TK key);
-        vector<TV> search(TK begin, TK end);
+
+        void insert(TK key, TV value){
+            insert(root, key, value);
+        }
+
+        void erase(TK key){
+            erase(root, key);
+        }
+
+        vector<TV> search(TK begin, TK end){
+            vector<TV> result;
+            search(root, begin, end, result);
+            return result;
+        }
+
         void print(string traversal = "inorder");
+
         void clear();
+
         ~AVL(){
             clear();
         }
