@@ -2,6 +2,8 @@
 #define AVL_H
 
 #include <iostream>
+#include <queue>
+#include <stack>
 #include <string>
 #include <vector>
 using namespace std;
@@ -179,9 +181,33 @@ class AVL{
             }
         }
 
-        void breadth_first_search(Node* current);
+        void breadth_first_search(Node* current){
+            queue<Node*> q;
+            q.push(root);
+            while(!q.empty()){
+                Node* temp = q.front();
+                q.pop();
+                cout << temp->data << " ";
+                if(temp->left)
+                    q.push(node->left);
+                if(temp->righ)
+                    q.push(node->righ);
+            }
+        }
 
-        void depth_first_search(Node* current);
+        void depth_first_search(Node* current){
+            stack<Node*> s;
+            s.push(root);
+            while(!s.empty){
+                Node* temp = s.front();
+                s.pop();
+                cout << temp->data << " ";
+                if(temp->left)
+                    s.push(temp->left)
+                if(temp->righ)
+                    s.push(temp->righ);
+            }
+        }
 
     public:
         AVL(): root(nullptr){};
@@ -215,6 +241,8 @@ class AVL{
                 cout << "Invalid input. Defaulting to inorder" << "\n";
                 in_order(root);
             }
+
+            cout << "\n"
         }
 
         void clear(){
