@@ -31,7 +31,17 @@ class AVL{
 
         void erase(Node* current, T key);
 
-        void search(Node* current, T begin, T end, vector<T>& v);
+        void range_search(Node* current, T begin, T end, vector<T>& v){
+            if(!current)
+                return;
+            
+            if(current->data > begin)
+                search(current->left, begin, end, v);
+            if(current->data >= begin && current->data <= end)
+                v.push_back(current->data);
+            if(current->data < end)
+                search(current->right, begin, end, v);
+        }
 
     public:
         AVL(): root(nullptr){};
@@ -44,7 +54,7 @@ class AVL{
             erase(root, key);
         }
 
-        vector<T> search(T begin, T end){
+        vector<T> range_search(T begin, T end){
             vector<T> result;
             search(root, begin, end, result);
             return result;
