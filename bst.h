@@ -90,6 +90,60 @@ class BST{
                 range_search(current->right, begin, end, v);
         }
 
+        void pre_order(Node* current){
+            if(current){
+                cout << current->data << " ";
+                pre_order(current->left);
+                pre_order(current->right);
+            }
+        }
+
+        void in_order(Node* current){
+            if(current){
+                in_order(current->left);
+                cout << current->data << " ";
+                in_order(current->right);
+            }
+        }
+
+        void post_order(Node* current){
+            if(current){
+                post_order(current->left);
+                post_order(current->right);
+                cout << current->data << " ";
+            }
+        }
+
+        void breadth_first_search(){
+            queue<Node*> q;
+            q.push(root);
+            while(!q.empty()){
+                Node* temp = q.front();
+                q.pop();
+                cout << temp->data << " ";
+                if(temp->left)
+                    q.push(temp->left);
+                if(temp->right)
+                    q.push(temp->right);
+            }
+        }
+
+        void depth_first_search(){
+            stack<Node*> s;
+            Node* temp = root;
+
+            while(temp || !s.empty()){
+                while(temp){
+                    s.push(temp);
+                    temp = temp->left;
+                }
+                temp = s.top();
+                s.pop();
+                cout << temp->data << " ";
+                temp = temp->right;
+            }
+        }
+
     public:
         BST(): root(nullptr){};
 
