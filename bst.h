@@ -28,9 +28,15 @@ class BST{
 
     public:
         BST(): root(nullptr){};
+
         void insert(T _data);
+
         void erase(T key);
-        vector<TV> search(T begin, T end);
+
+        bool search(T data);
+
+        vector<TV> range_search(T begin, T end);
+
         void print(string traversal = "inorder");
 
         void clear(){
