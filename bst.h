@@ -26,7 +26,14 @@ class BST{
 
         Node* root;
 
-        void insert(Node*& current, T _data);
+        void insert(Node*& current, T _data){
+            if(!current)
+                current = new Node(_data);
+            else if(_data < current->data)
+                insert(current->left, _data);
+            else if(_data > current->data)
+                insert(current->right, _data);
+        }
 
         void erase(Node*& current, T _data);
 
