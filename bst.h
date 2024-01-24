@@ -44,7 +44,7 @@ class BST{
                 insert(current->right, _data);
         }
 
-        void erase(Node*& current, T _data){
+        void erase(Node*& current, T item){
             if(!current)
                 return;
             
@@ -152,7 +152,7 @@ class BST{
         }
 
         void erase(T item){
-            erase(root, item)
+            erase(root, item);
         }
 
         bool search(T item){
